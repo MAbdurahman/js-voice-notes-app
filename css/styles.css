@@ -1,0 +1,559 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+/* ==========================================
+              Website Resets
+============================================= */
+*,
+*::after,
+*::before {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   -o-user-select: none;
+   user-select: none;
+}
+
+*::-moz-focus-inner {
+   border: 0;
+}
+
+*:focus {
+   outline: none;
+}
+
+/*=============================================
+         root, html,  and body styles
+================================================*/
+:root {
+   --clr-primary-100: hsla(210, 71%, 96%, 100%);
+   --clr-primary-200: hsla(210, 71%, 86%, 100%);
+   --clr-primary-300: hsla(210, 59%, 70%, 100%);
+   --clr-primary-400: hsla(210, 68%, 63%, 100%);
+   --clr-primary-500: hsla(210, 67%, 54%, 100%);
+   --clr-primary-600: hsla(210, 67%, 46%, 100%);
+   --clr-primary-700: hsla(210, 68%, 37%, 100%);
+   --clr-primary-800: hsla(210, 67%, 29%, 100%);
+   --clr-neutral-100: hsla(0, 0%, 98%, 100%);
+   --clr-neutral-200: hsla(0, 0%, 94%, 100%);
+   --clr-neutral-300: hsla(0, 0%, 85%, 100%);
+   --clr-neutral-400: hsla(0, 0%, 75%, 100%);
+   --clr-neutral-500: hsla(0, 0%, 60%, 100%);
+   --clr-neutral-600: hsla(0, 0%, 38%, 100%);
+   --clr-neutral-700: hsla(0, 0%, 19%, 100%);
+   --clr-neutral-800: hsla(0, 0%, 7%, 100%);
+   --clr-augmented-100: hsla(210, 15%, 58%, 100%);
+   --clr-augmented-200: hsla(210, 11%, 50%, 100%);
+   --clr-augmented-300: hsla(210, 11%, 36%, 100%);
+   --clr-augmented-400: hsla(210, 25%, 19%, 100%);
+   --clr-semantic-s-400: hsla(100, 72%, 23%, 100%);
+   --clr-semantic-s-300: hsla(100, 85%, 26%, 100%);
+   --clr-semantic-s-200: hsla(100, 82%, 31%, 100%);
+   --clr-semantic-s-100: hsla(100, 96%, 33%, 100%);
+   --clr-semantic-w-400: hsla(48, 72%, 42%, 100%);
+   --clr-semantic-w-300: hsla(48, 85%, 43%, 100%);
+   --clr-semantic-w-200: hsla(48, 82%, 48%, 100%);
+   --clr-semantic-w-100: hsla(48, 96%, 49%, 100%);
+   --clr-semantic-a-400: hsla(0, 72%, 23%, 100%);
+   --clr-semantic-a-300: hsla(0, 85%, 26%, 100%);
+   --clr-semantic-a-200: hsla(0, 82%, 31%, 100%);
+   --clr-semantic-a-100: hsla(0, 96%, 38%, 100%);
+   --ff-font-body: "Nunito", sans-serif;
+   --fw-font-weight-400: 400;
+   --fw-font-weight-600: 600;
+   --fw-font-weight-700: 700;
+   --ls-letter-spacing: 1px;
+   --br-border-radius: 3px;
+}
+
+html {
+   font-size: 100%;
+}
+
+@media only screen and (max-width: 420px) {
+   html {
+      font-size: 83.333%;
+   }
+}
+@media only screen and (max-width: 360px) {
+   html {
+      font-size: 66.667%;
+   }
+}
+body {
+   width: 100%;
+   min-height: 100vh;
+   height: 100vh;
+   margin: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: var(--ff-font-body);
+   font-weight: var(--fw-font-weight-400);
+   font-size: 1rem;
+   letter-spacing: var(--ls-letter-spacing);
+   color: var(--clr-augmented-400);
+   background-image: radial-gradient(circle, var(--clr-neutral-200) 28%, var(--clr-neutral-200) 100%);
+}
+
+@media only screen and (max-width: 540px) {
+   body {
+      overflow: hidden;
+   }
+}
+h1, h2, h3, h4, h5 {
+   margin: 3rem 0 1.38rem;
+   font-family: var(--ff-font-body);
+   font-weight: var(--fw-font-weight-600);
+   line-height: 1;
+}
+
+h1 {
+   margin-top: 0;
+   font-size: 3rem;
+   font-weight: var(--fw-font-weight-700);
+}
+
+h2 {
+   font-size: 2rem;
+}
+
+h3 {
+   font-size: 1.9rem;
+}
+
+h4 {
+   font-size: 1.5rem;
+}
+
+h5 {
+   font-size: 1.25rem;
+}
+
+p {
+   margin-bottom: 1rem;
+}
+
+small, .text_small {
+   font-size: 0.8rem;
+}
+
+input, textarea {
+   font-family: var(--ff-font-body);
+}
+
+ul {
+   list-style: none;
+}
+
+*::placeholder,
+input::placeholder {
+   color: var(--clr-augmented-200);
+}
+
+.interim:empty:before {
+   content: attr(data-placeholder);
+   color: var(--clr-augmented-200);
+}
+
+ion-icon {
+   font-size: 4rem;
+}
+
+/*=============================================
+      scrollbar styles
+================================================*/
+/* width */
+::-webkit-scrollbar {
+   width: 3px;
+}
+
+/* track */
+::-webkit-scrollbar-track {
+   margin-left: 4px;
+   box-shadow: inset 0 0 5px var(--clr-neutral-400);
+   border-radius: var(--br-border-radius);
+}
+
+/* handle */
+::-webkit-scrollbar-thumb {
+   background: var(--clr-neutral-300);
+   border-radius: var(--br-border-radius);
+}
+
+/* handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: var(--clr-neutral-600);
+}
+
+/* =========================================
+              preloader
+============================================ */
+#preloader {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-image: radial-gradient(circle, var(--clr-neutral-200) 28%, var(--clr-neutral-200) 100%);
+   background-image: radial-gradient(circle, var(--clr-neutral-400) 28%, var(--clr-neutral-400) 100%);
+   display: -webkit-box;
+   display: flex;
+   -webkit-box-align: center;
+   align-items: center;
+   -webkit-box-pack: center;
+   justify-content: center;
+   z-index: 10000;
+}
+
+#preloader-gif {
+   width: 20%;
+   align-self: center;
+}
+
+@media screen and (max-width: 768px) {
+   #preloader-gif {
+      width: 50%;
+   }
+}
+/*=============================================
+          wrapper
+================================================*/
+div.wrapper {
+   width: 100%;
+   max-width: 640px;
+   padding: 8px;
+   border-radius: var(--br-border-radius);
+   background: hsla(0, 0%, 94%, 0.7);
+   background: var(--clr-neutral-200);
+}
+
+@media only screen and (max-height: 667px) {
+   .wrapper {
+      padding-top: 4px;
+   }
+}
+/*=============================================
+        heading
+================================================*/
+.heading {
+   margin-bottom: 0.75em;
+   font-weight: var(--fw-font-weight-700);
+   text-transform: capitalize;
+   text-align: center;
+   color: var(--clr-primary-800);
+}
+
+.heading-title {
+   font-size: 1.9rem;
+}
+
+@media only screen and (max-width: 540px) {
+   .heading-title {
+      margin-bottom: 1.5em;
+   }
+}
+/*=============================================
+          new-notes-textarea
+================================================*/
+section.new-notes-wrapper {
+   position: relative;
+   margin-bottom: 0.5em;
+   padding: 16px;
+   padding-left: 8px;
+   padding-right: 4px;
+   background-color: var(--clr-neutral-100);
+   border: 1px solid var(--clr-primary-800);
+   border-radius: var(--br-border-radius);
+}
+
+.new-notes-title {
+   position: absolute;
+   top: 0;
+   margin: -9px 0 0;
+   padding: 0 3px;
+   font-size: 18px;
+   line-height: 1;
+   background-color: var(--clr-neutral-100);
+   background-image: radial-gradient(circle, var(--clr-neutral-200) 28%, var(--clr-neutral-200) 100%);
+}
+
+.new-notes-textarea {
+   max-width: 100%;
+   width: 100%;
+   border: hidden;
+   resize: none;
+   background-color: transparent;
+}
+
+.new-notes-textarea textarea {
+   max-width: 100%;
+   width: 100%;
+   height: 152px;
+   max-height: 480px;
+   min-height: 152px;
+   padding: 0.25em 0.5em;
+   margin-bottom: 1em;
+   background-color: transparent;
+   resize: vertical;
+   outline: none;
+}
+
+/* Modern Browsers */
+textarea::placeholder {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/* WebKit, Edge */
+.new-notes-textarea textarea::-webkit-input-placeholder {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/* Firefox 4-18 */
+.new-notes-textarea textarea::-moz-placeholder {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/* Firefox 19+ */
+.new-notes-textarea textarea::-moz-placeholder {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/* IE 10-11 */
+.new-notes-textarea textarea::-ms-input-placeholder {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/* Edge */
+.new-notes-textarea textarea::-ms-input-placeholder {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/*=============================================
+          button-wrapper
+================================================*/
+section.button-wrapper {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   margin-bottom: 1.5em;
+   padding: 16px;
+}
+
+/*=============================================
+        button
+================================================*/
+.btn-default {
+   position: relative;
+   width: 33.333%;
+   padding: 8px 16px;
+   margin: 10px;
+   text-transform: uppercase;
+   border: 1px solid black;
+   border-radius: var(--br-border-radius);
+   background: steelblue;
+   -moz-transition: all 300ms;
+   -o-transition: all 300ms;
+   -webkit-transition: all 300ms;
+   transition: all 300ms;
+   z-index: 1;
+   color: var(--clr-neutral-100);
+   font-weight: 700;
+   overflow: hidden;
+   cursor: pointer;
+}
+
+.btn-default:hover {
+   border-color: steelblue;
+   color: steelblue;
+}
+
+.btn-default:after {
+   content: "";
+   position: absolute;
+   z-index: -1;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   -moz-transition: all 300ms;
+   -o-transition: all 300ms;
+   -webkit-transition: all 300ms;
+   transition: all 300ms;
+   background: white;
+}
+
+.btn-fill::after {
+   height: 100%;
+   width: 100%;
+   -moz-transform: scale(0);
+   -ms-transform: scale(0);
+   -webkit-transform: scale(0);
+   transform: scale(0);
+}
+
+.btn-fill:hover::after {
+   -moz-transform: scale(1);
+   -ms-transform: scale(1);
+   -webkit-transform: scale(1);
+   transform: scale(1);
+}
+
+button.btn-fill:not(last-child) {
+   margin-right: 0.5em;
+}
+
+button.swal-button.swal-button--confirm {
+   background: steelblue;
+   color: var(--clr-neutral-100);
+   border-radius: var(--br-border-radius);
+   border: 1px solid #4682b4;
+}
+
+button.swal-button.swal-button--confirm:hover {
+   color: steelblue;
+   background: white;
+}
+
+.swal-button__loader div {
+   background: steelblue;
+   color: var(--clr-neutral-100);
+}
+
+.swal-button__loader div:hover {
+   color: steelblue;
+   background: var(--clr-neutral-100);
+}
+
+/*=============================================
+        saved-notes-wrapper
+================================================*/
+section.saved-notes-wrapper {
+   position: relative;
+   margin-bottom: 1em;
+   padding: 16px;
+   padding-left: 8px;
+   padding-right: 4px;
+   background-color: var(--clr-neutral-100);
+   border: 1px solid var(--clr-primary-800);
+   border-radius: var(--br-border-radius);
+}
+
+.saved-notes-title {
+   position: absolute;
+   top: 0;
+   margin: -9px 0 0;
+   padding: 0 3px;
+   font-size: 18px;
+   line-height: 1;
+   background-color: var(--clr-neutral-100);
+   background-image: radial-gradient(circle, var(--clr-neutral-200) 28%, var(--clr-neutral-200) 100%);
+}
+
+.no-saved-notes {
+   font-size: 1rem;
+   color: #9c9c9c;
+}
+
+/*=============================================
+          saved-note-list
+================================================*/
+.saved-notes-items {
+   max-height: 200px;
+   overflow-y: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   row-gap: 16px;
+}
+
+.saved-notes-item {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   padding-right: 0.5em;
+}
+
+.saved-notes-date-wrapper {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
+.saved-notes-date-buttons {
+   width: 30%;
+   display: flex;
+   justify-content: space-evenly;
+   justify-content: flex-end;
+}
+
+.saved-notes-date {
+   font-weight: var(--fw-font-weight-600);
+   color: var(--clr-primary-800);
+}
+
+.saved-notes-date-button {
+   font-size: 1rem;
+   margin-left: 2.6em;
+}
+
+@media only screen and (max-width: 540px) {
+   .saved-notes-date-buttons {
+      /*width: 15%;*/
+      width: 20%;
+      justify-content: space-between;
+   }
+   .saved-notes-date-button {
+      margin-left: 0;
+   }
+}
+.note-read {
+   color: #4682b4;
+   transition: color 0.333s;
+}
+
+.note-read:hover {
+   color: var(--clr-primary-400);
+}
+
+.note-delete {
+   color: var(--clr-semantic-a-300);
+   transition: color 0.333s;
+}
+
+.note-delete:hover {
+   color: var(--clr-semantic-a-100);
+}
+
+.note-edit {
+   color: var(--clr-semantic-w-300);
+   transition: color 0.333s;
+}
+
+.note-edit:hover {
+   color: var(--clr-semantic-w-100);
+}
+
+.saved-notes-content-wrapper {
+   width: 100%;
+}
+
+.saved-notes-line {
+   width: 50%;
+   margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+   .saved-notes-date-button.note-read {
+      /*display: none;*/
+   }
+}
+
+/*# sourceMappingURL=main.css.map */

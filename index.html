@@ -12,6 +12,8 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <!-- normalize styles -->
     <link rel="stylesheet" href="./css/normalize.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- main styles -->
     <link rel='stylesheet' href='./css/styles.css'>
     <!-- jquery scripts-->
@@ -22,6 +24,54 @@
     <script defer src="./js/scripts.js"></script>
 </head>
 <body>
+<!-- begin of preloader -->
+<div id="preloader">
+    <img src="./img/preloader.gif" alt="animated hard drive" id="preloader-gif"/>
+</div>
+<!-- begin of main content -->
+<div class="wrapper">
+    <div class="heading">
+        <h1 class="heading-title">Voice-Notes-App</h1>
+    </div>
+    <div class="app">
+        <section class="new-notes-wrapper">
+            <h2 class="new-notes-title">New Notes</h2>
+            <textarea id="note-textarea" class="new-notes-textarea" spellcheck="false"
+                      placeholder="Create a new note by speaking or typing." cols="25" rows="5"></textarea>
+        </section>
+        <section class="button-wrapper">
+            <button class="btn-default btn-fill" id="start-record-btn">Start</button>
+            <button class="btn-default btn-fill" id="stop-record-btn">Stop</button>
+            <button class="btn-default btn-fill" id="save-record-btn">Save</button>
+        </section>
+        <section class="saved-notes-wrapper">
+            <h2 class="saved-notes-title">Saved Notes</h2>
+            <ul id="notes-list" class="saved-notes-items"></ul>
+        </section>
+    </div>
+    <template id="template">
+        <li class="saved-notes-item">
+            <section class="saved-notes-date-wrapper">
+                <p class="saved-notes-date"></p>
+                <section class="saved-notes-date-buttons">
+                    <a href="#" class="saved-notes-date-button note-read">
+                        <i class='fas fa-volume-up'></i>
+                    </a>
+                    <a href="#" class="saved-notes-date-button note-edit">
+                        <i class='fas fa-edit'></i>
+                    </a>
+                    <a href="#" class="saved-notes-date-button note-delete">
+                        <i class='fas fa-trash-alt fa'></i>
+                    </a>
+                </section>
+            </section>
+            <section class="saved-notes-content-wrapper">
+                <p class="saved-notes-content"></p>
+                <hr class="saved-notes-line"/>
+            </section>
+        </li>
+    </template>
+</div>
 
 </body>
 </html>
