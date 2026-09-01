@@ -10,7 +10,7 @@ js-voice-notes-app is a HTML5, CSS3, and JavaScript application that allows user
 - Notification messages
 - Responsive design
 
-## live demo
-https://js-voice-notes-app.vercel.app/
+## [live demo](https://js-voice-notes-app.vercel.app/)
+
 
 <img width="800" height="376" alt="Image" src="https://github.com/user-attachments/assets/e3ec078b-3f15-4d7e-b9da-b3c520b5aaa3" />
