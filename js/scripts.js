@@ -12,22 +12,16 @@ $(window).on('load', function () {
           js-voice-notes-app scripts
 ==================================================================*/
 $(function () {
-   /**
-    * Test whether the browser has support for SpeechRecognition
-    */
-   try {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+   // test whether the browser has support for SpeechRecognition
+   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-   } catch (event) {
-      console.error(event);
-      swal('No Browser Support', 'Try again in a browser with WebSpeech Recognition', 'error');
+   if (!SpeechRecognition) {
+      swal('No Browser Support', 'Try a browser that supports WebSpeech Recognition', 'error');
       $('.app').hide();
       return;
-
    }
 
    //**************** variables ****************//
-   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
    const recognition = new SpeechRecognition();
 
    const note_textarea = $('#note-textarea');
@@ -41,7 +35,6 @@ $(function () {
 
    let is_editing = false;
    let edit_item;
-   /*let edit_index;*/
    let edit_id = '';
    let edit_date;
    let edit_content;
@@ -49,7 +42,7 @@ $(function () {
    getInitialNoteList();
 
    if (navigator.storage && navigator.storage.persisted) {
-      //always feature detect
+      // always feature detect
       // persisted() - has this been marked as persisted
       // persist() - permissions request
       navigator.storage.persisted().then((wellWasIt) => {
@@ -62,13 +55,14 @@ $(function () {
 
    /*===============================================================
           SpeechRecognition - recognition
-==================================================================*/
+   ==================================================================*/
    /**
     * If recognition.continuous = false, the recording will stop after a few seconds of
     * silence.  When it is true, the silence period can be longer (about 15 seconds).  Thus,
     * allowing SpeechRecognition to continue recording, even when the speaker pauses.
     */
    recognition.continuous = true;
+   recognition.lang = 'en-US';
 
    /**
     * This function is called every time the Speech API captures a line
@@ -116,11 +110,9 @@ $(function () {
 
    }; //end of onerror function
 
-
    /*===============================================================
           functions
-==================================================================*/
-
+   ==================================================================*/
    /**
     * @description -
     * @param id
@@ -315,7 +307,7 @@ $(function () {
                const speech_utter = new SpeechSynthesisUtterance();
                const voices = synthesis.getVoices();
 
-               speech_utter.lang = 'en';
+               speech_utter.lang = 'en-US';
                speech_utter.voice = voices[0];
                speech_utter.text = content;
                speech_utter.volume = 1;
@@ -360,7 +352,8 @@ $(function () {
       if (note_content && !is_recording && !is_editing) {
          const date_time = new Date();
          let date = date_time.toString().slice(0, -29);
-         let id = self.crypto.randomUUID();
+         let id = self.crypto.randomUUID() ? self.crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
          createNoteItem(id, date, note_content);
          addToLocalStorage(id, date, note_content);
@@ -398,7 +391,6 @@ $(function () {
          note_content = '';
          is_recording = false;
          is_editing = false;
-         /*edit_item;*/
          edit_id = '';
          edit_date = '';
          save_button.text('save');
@@ -429,7 +421,7 @@ $(function () {
 
    /*===============================================================
           addEventListeners
-==================================================================*/
+   ==================================================================*/
    window.addEventListener('DOMContentLoaded', getInitialNoteList);
 
    note_textarea.on('click', function (event) {
