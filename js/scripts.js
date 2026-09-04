@@ -64,6 +64,13 @@ $(function () {
    recognition.continuous = true;
    recognition.lang = 'en-US';
 
+
+   recognition.onstart = function () {
+      swal('Speech Recognition Activated', 'Begin speaking into the microphone', 'success');
+
+   }; //end of onstart function
+
+
    /**
     * This function is called every time the Speech API captures a line
     */
@@ -73,27 +80,16 @@ $(function () {
        * The event is a SpeechRecognitionEvent object.  It holds all the line captured. Therefore,
        * the current one will suffice.
        */
-      let current = event.resultIndex;
+      let transcript = '';
 
-      // Get a transcript of what was said.
-      let transcript = event.results[current][0].transcript;
-
-      // Add the current transcript to the contents of our Note.
-      // There is a weird bug on mobile, where everything is repeated twice.
-      // There is no official solution so far, so we have to handle an edge case.
-      var mobile_repeat_bug = (current === 1 && transcript === event.results[0][0].transcript);
-
-      if (!mobile_repeat_bug) {
-         note_content += transcript;
-         note_textarea.val(note_content);
-
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+         transcript += event.results[i][0].transcript;
       }
+
+      note_content += `${transcript}`;
+      note_textarea.val(note_content.trim());
+
    }; //end of onresult function
-
-   recognition.onstart = function () {
-      swal('Speech Recognition Activated', 'Begin speaking into the microphone', 'success');
-
-   }; //end of onstart function
 
    recognition.onspeechend = function () {
       if (is_recording === true) {
@@ -103,9 +99,21 @@ $(function () {
    }; //end of onspeechend function
 
    recognition.onerror = function (event) {
-      if (event.error === 'no-speech') {
-         swal('Terminated', 'No speech detected. Try again!', 'error');
-         return;
+      const errorMessages = {
+         'no-speech': 'No speech detected. Try again!',
+         'audio-capture': 'No microphone was found. Ensure the microphone is plugged in and that microphone settings are configured correctly.',
+         'not-allowed': 'Permission to use microphone is denied!',
+         'network': 'Network error occurred',
+         'not-supported': 'Browser is not supported!',
+         'service-not-allowed': 'Service is not allowed by browser!'
+      }
+
+      const message = errorMessages[event.error] || 'Unknown error occurred!';
+      is_recording = false;
+
+      if (event.error) {
+         swal('Error', message, 'error');
+
       }
 
    }; //end of onerror function
@@ -121,9 +129,7 @@ $(function () {
     */
    function addToLocalStorage(id, date, content) {
       const noteItem = {
-         id,
-         date,
-         content
+         id, date, content
       };
       let localNoteListArr = getLocalStorage();
       localNoteListArr.push(noteItem);
@@ -209,7 +215,7 @@ $(function () {
 
             } else {
                swal('Note Item Saved', 'Your note item is safe!', {icon: 'info'});
-               return;
+
             }
          });
       }
@@ -288,11 +294,10 @@ $(function () {
    } //end of handleNoNotesParagraph function
 
    /**
-    * @description -
-    * @param event
+    * @description - Reads out loud the content of a note item.
+    * @param event - The event object.
     */
    function readNoteItem(event) {
-
       if (event.target.classList.contains('fa-volume-up')) {
          const noteItem = event.target.parentElement.parentElement.parentElement.parentElement;
          const id = noteItem.dataset.id;
@@ -320,7 +325,7 @@ $(function () {
 
          } else {
             swal('Not Supported In Your Browser!', 'Text-to-speech is not supported.', {icon: 'info'});
-            return;
+
 
          }
 
@@ -352,8 +357,7 @@ $(function () {
       if (note_content && !is_recording && !is_editing) {
          const date_time = new Date();
          let date = date_time.toString().slice(0, -29);
-         let id = self.crypto.randomUUID() ? self.crypto.randomUUID()
-            : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+         let id = self.crypto.randomUUID() ? self.crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
          createNoteItem(id, date, note_content);
          addToLocalStorage(id, date, note_content);
@@ -376,7 +380,7 @@ $(function () {
 
       } else {
          swal('Invalid Entry', 'Textarea cannot be empty!', 'error');
-         return;
+
       }
 
    } //end of saveNoteItem function
@@ -442,14 +446,14 @@ $(function () {
          swal('Speech Recognition Error', 'Speech Recognition has already started! Stopping...', 'error');
          recognition.stop();
          is_recording = false;
-         return;
+
 
       } else {
          swal('Speech Recognition Error', 'Speech Recognition is editing! Stopping...', 'error');
          recognition.stop();
 
          setToDefaultSettings();
-         return;
+
       }
    });
 
@@ -463,7 +467,7 @@ $(function () {
          is_recording = false;
 
          swal('Speech Recognition Stopped', 'Speech Recognition has safely stopped', 'info');
-         return;
+
       }
    });
 
